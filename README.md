@@ -29,4 +29,14 @@ This project is in 3 parts:
 <img width="951" height="954" alt="image" src="https://github.com/user-attachments/assets/e48171fe-f956-461b-971a-5fb3d0d99c03" /> <br>
 <img width="642" height="910" alt="image" src="https://github.com/user-attachments/assets/27f754e4-dbce-45f2-aa32-15b067b6e92a" /> <br>
 <img width="1005" height="651" alt="image" src="https://github.com/user-attachments/assets/cabb1e9e-a194-438f-ac0c-cb98c661b1c4" /> <br>
-<img width="716" height="428" alt="image" src="https://github.com/user-attachments/assets/ea33b098-e6df-4565-9491-69beb4c09ee9" />
+<img width="716" height="428" alt="image" src="https://github.com/user-attachments/assets/ea33b098-e6df-4565-9491-69beb4c09ee9" /> <br>
+
+## How To Build
+* Download [LLVM 19.1](https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.0)
+* Download [VCPKG](https://github.com/microsoft/vcpkg)
+* VCPKG install asmjit
+* Open build.bat in a text editor.
+* Find the LLVM 19.1 references in the command line, Change them to your file path.
+* Find the VCPKG references in the command line, Change them to your file path.
+* Run the build script
+* Build your application with the ``` -load-pass-plugin ``` Param to the FunctionPass.dll
