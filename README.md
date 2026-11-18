@@ -24,6 +24,26 @@ This project is in 3 parts:
 * Solve it with Gaussian elimination. Arithmetic wraps on overflow, so only odd entries can be divided by; any leftover unknowns take random values.
 * Plug the coefficients back in. The result is a sum of boolean ops that collapses to the target at every input.
 
+## Clearing some stuff up(READ!)
+I state that you want to use opaques to secure your MBA and to generate your MBA with opaque predicates guarding the coefficients.<br>
+I need to be clear; AI based opaque resolution is impeccable; When writing MBA for opaques in the way i described you NEED to make sure your generator is generating plausible values.<br>
+Lets say you have 4 opaque gates here:
+```c
+int64 i = 0;
+if(real)
+i = 0x8000
+else if(alwaysfalse)
+i = 0x1435896398
+else if(alwaysfalse)
+i = 0x68347663
+else if(alwaysfalse)
+i = -0x1ffff32555
+```
+This is the point i am proving, 0x8000 is a common x64 cast sign. It is used to access higher addresses or sign against. So when an AI goes over your MBA, compares the coefficients and simplifies 4 values, 1 of them is 0x8000, the rest are bullshit, and `i` is only used in GetAsyncKeyState... For signing.... <br>
+You see what i am saying now? AI doesn't need to resolve your opaque predicates like a lifter tool set would, it can just resolve the inputs and outputs, deem what is realistic. Then assume the path without resolving it. <br> 
+So be fucking careful with how you generate MBA if you want to protect it with MBA! Make the values sample from other parts of your code, make the code make sense! That is how you stop your MBA being resolved by anything. <br>
+Since you have a coefficient generator, you can rig it SO EASILY! Thats the point of this pass, you can rig the MBA for your opaque predicates, make the paths believable. <br>
+
 <img width="722" height="941" alt="image" src="https://github.com/user-attachments/assets/83292469-d5e8-4260-b72c-5f6915836c3e" /> <br>
 <img width="1094" height="954" alt="image" src="https://github.com/user-attachments/assets/21c4a28a-1301-4576-b525-049512fe568f" /> <br>
 <img width="951" height="954" alt="image" src="https://github.com/user-attachments/assets/e48171fe-f956-461b-971a-5fb3d0d99c03" /> <br>
